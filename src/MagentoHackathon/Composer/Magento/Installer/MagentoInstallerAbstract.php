@@ -278,7 +278,12 @@ abstract class MagentoInstallerAbstract extends LibraryInstaller implements Inst
     public function getDeployStrategy(PackageInterface $package, $strategy = null)
     {
         if (null === $strategy) {
-            $strategy = $this->deployStrategy;
+            $packageExtra = $package->getExtra();
+            if (isset($packageExtra['magento-deploystrategy'])) {
+                $strategy = (string)$packageExtra['magento-deploystrategy'];
+            } else {
+                $strategy = $this->deployStrategy;
+            }
         }
 
         if ($this->getConfig()->hasDeployStrategyOverwrite()) {
