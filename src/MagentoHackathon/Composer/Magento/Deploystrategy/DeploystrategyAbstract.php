@@ -269,7 +269,7 @@ abstract class DeploystrategyAbstract
 
     protected function removeTrailingSlash($path)
     {
-        return rtrim($path, ' \\/');
+        return rtrim($path, '\\/');
     }
 
     /**
@@ -387,12 +387,15 @@ abstract class DeploystrategyAbstract
     {
         $absoluteDir = $this->getDestDir() . '/' . $dir;
         if (is_dir($absoluteDir)) {
-            $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($absoluteDir),
-                \RecursiveIteratorIterator::CHILD_FIRST);
+            $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($absoluteDir),
+                \RecursiveIteratorIterator::CHILD_FIRST
+            );
 
             foreach ($iterator as $item) {
+                /** @var SplFileInfo $item */
                 $path = (string)$item;
-                if (!strcmp($path, '.') || !strcmp($path, '..')) {
+                if (!strcmp($item->getFilename(), '.') || !strcmp($item->getFilename(), '..')) {
                     continue;
                 }
                 // The directory contains something, do not remove

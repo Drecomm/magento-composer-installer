@@ -1,4 +1,11 @@
-# Magento Composer Installer [![Build Status](https://travis-ci.org/magento-hackathon/magento-composer-installer.png)](https://travis-ci.org/magento-hackathon/magento-composer-installer)
+[![Build Status](https://travis-ci.org/magento-hackathon/magento-composer-installer.png)](https://travis-ci.org/magento-hackathon/magento-composer-installer)
+[![Dependency Status](https://www.versioneye.com/php/magento-hackathon:magento-composer-installer/2.0.0/badge.svg)](https://www.versioneye.com/php/magento-hackathon:magento-composer-installer/2.0.0)
+[![Reference Status](https://www.versioneye.com/php/magento-hackathon:magento-composer-installer/reference_badge.svg)](https://www.versioneye.com/php/magento-hackathon:magento-composer-installer/references)
+[![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=284872)](https://www.bountysource.com/trackers/284872-magento-hackathon-magento-composer-installer?utm_source=284872&utm_medium=shield&utm_campaign=TRACKER_BADGE)
+
+# Magento Composer Installer 
+
+<img src="https://getcomposer.org/img/logo-composer-transparent.png" itemprop="image" alt="Dart Mosaic" style="height:50px;">
 
 The purpose of this project is to 
 enable [composer](https://github.com/composer/composer) to install Magento modules,
@@ -67,6 +74,23 @@ For all of this Issues you can make use of the commercial [Toran Proxy](https://
 It also allows hosting of private packages and speeds up the whole downloading process.
 
 Another alternative is to look into [Satis](https://github.com/composer/satis), bare git mirrors and repository aliasing.
+
+Another way to speedup downloads over ssh(also interesting for satis users) is to improve your ssh configs.
+At least for newer versions of openSSH you can add the following to your ```.ssh/config``` to reuse previous connections.
+```
+Host * 
+    ControlPath ~/.ssh/controlmasters/%r@%h:%p
+    ControlMaster auto
+    ControlPersist 10m
+```
+
+also you need to create the ```controlmasters``` directory:
+```sh
+mkdir ~/.ssh/controlmasters
+chmod go-xr ~/.ssh/controlmasters
+```
+
+further information can be found on [wikibooks](http://en.wikibooks.org/wiki/OpenSSH/Cookbook/Multiplexing) 
 
 ## Usage
 
